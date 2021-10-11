@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_demo/My.dart';
 
 import 'Home.dart';
 
@@ -8,9 +9,22 @@ void main() => runApp(myApp());
 class myApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // return GetMaterialApp(
+    //   title: 'GetX',
+    //   home: ObxCountExample(),
+    // );
+
+    //命名式路由导航
     return GetMaterialApp(
       title: 'GetX',
-      home: ObxCountExample(),
+      initialRoute: "/",
+      defaultTransition: Transition.rightToLeft,
+      getPages: [
+        GetPage(name: "/", page: () => ObxCountExample()),
+        GetPage(name: "/home", page: () => Home()),
+        GetPage(name: "/my", page: () => My(), transition: Transition.zoom)
+      ],
+      // home: ObxCountExample(),
     );
   }
 }
@@ -111,11 +125,11 @@ class ObxCountExample extends StatelessWidget {
                 //   curve: Curves.easeInOut
                 // );
 
-                //传递参数给下一个页面
-                Get.to(
-                  Home(),
-                  arguments: 'Hello GetX'
-                );
+                // //传递参数给下一个页面
+                // Get.to(
+                //   Home(),
+                //   arguments: 'Hello GetX'
+                // );
 
                 // //接收上一个页面的数据
                 // var data = await Get.to(
@@ -123,6 +137,9 @@ class ObxCountExample extends StatelessWidget {
                 //   arguments: 'Hello GetX'
                 // );
                 // print('我刚刚接受到了数据 $data');
+
+                //命名路由跳转
+                Get.toNamed("/my");
               }, 
               child: Text('跳转页面'))
           ],
