@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_demo/Controller/person_controller.dart';
 import 'package:getx_demo/model/person_model.dart';
 
 // ignore: must_be_immutable
 class HomeView extends StatelessWidget {
-  // var person = Person();
+  var person = Person();
 
-  final person = Person(name: "Jabir", age: 18).obs;
+  // final person = Person(name: "Jabir", age: 18).obs;
+
+  PersonController myController = Get.put(PersonController());
+
   HomeView({Key? key}) : super(key: key);
 
   @override
@@ -32,13 +36,20 @@ class HomeView extends StatelessWidget {
               onPressed: () {
                 // person.name.value = person.name.value.toUpperCase();
 
-                person.update((val) {
-                  person.value.name = person.value.name.toString().toUpperCase();
-                });
+                // person.update((val) {
+                //   person.value.name = person.value.name.toString().toUpperCase();
+                // });
+
+                //controller的形式
+                myController.convertTpUpperCase();
+                //测试controller监听
+                myController.increment();
+
               },
               child: Text("转换为大写")),
           // Obx(() => Text(person.name.value))
-          Obx(() => Text(person.value.name))
+          // Obx(() => Text(person.value.name))
+          Obx(() => Text(myController.person.name.toString()))
         ],
       )),
     );
