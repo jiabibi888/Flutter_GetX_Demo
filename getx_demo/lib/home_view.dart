@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_demo/Controller/person_controller.dart';
@@ -15,6 +16,11 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(defaultTargetPlatform == TargetPlatform.iOS){
+      return UiKitView(
+        viewType: 'plugins.flutter.io/custom_platform_view',
+      );
+    }
     return Scaffold(
       appBar: AppBar(title: const Text('首页')),
       body: Center(
@@ -44,6 +50,19 @@ class HomeView extends StatelessWidget {
                 myController.convertTpUpperCase();
                 //测试controller监听
                 myController.increment();
+                var person={
+                  "name":"张三",
+                  "age":20,
+                  "work":["程序员","送外卖"]
+                };
+                debugPrint(person.toString());
+                StringBuffer sb = StringBuffer('{');
+                sb.write("\"message\":\"$person\"");
+                sb.write(",\"errorMsg\":\"22\"");
+                sb.write(",\"data\":\"33\"");
+                sb.write('}');
+                debugPrint(sb.toString());
+
 
               },
               child: Text("转换为大写")),
